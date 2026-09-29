@@ -1,0 +1,7 @@
+<h2>My Books</h2>
+
+<div class="book-list">
+  @for (book of books; track book.id) {
+    <app-book-card [book]="book" />
+  }
+</div>
