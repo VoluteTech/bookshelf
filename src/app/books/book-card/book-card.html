@@ -1,0 +1,10 @@
+<article class="book-card">
+  <h3>{{ book().title }}</h3>
+  <p>by {{ book().author }}</p>
+
+  @if (book().read) {
+    <span class="badge">✓ Read</span>
+  } @else {
+    <span class="badge badge-unread">Not read yet</span>
+  }
+</article>
