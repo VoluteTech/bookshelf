@@ -2,6 +2,6 @@
 
 <div class="book-list">
   @for (book of books; track book.id) {
-    <app-book-card [book]="book" />
+    <app-book-card [book]="book" (toggleRead)="onToggleRead($event)" />
   }
 </div>

@@ -14,4 +14,11 @@ export class BookList {
     { id: 2, title: 'Project Hail Mary', author: 'Andy Weir', read: false },
     { id: 3, title: 'The Hobbit', author: 'J.R.R. Tolkien', read: true },
   ];
+
+  protected onToggleRead(bookId: number) {
+    const book = this.books.find(b => b.id === bookId);
+    if (book) {
+      book.read = !book.read;
+    }
+  }
 }
