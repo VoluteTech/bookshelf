@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { Book } from '../../book/book';
 
 @Component({
@@ -9,4 +9,9 @@ import { Book } from '../../book/book';
 })
 export class BookCard {
   book = input.required<Book>();
+  toggleRead = output<number>();
+
+  protected onToggleClick() {
+    this.toggleRead.emit(this.book().id);
+  }
 }
