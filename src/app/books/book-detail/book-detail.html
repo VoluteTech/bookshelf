@@ -1,1 +1,9 @@
-<p>book-detail works!</p>
+@if (book(); as b) {
+  <h2>{{ b.title }}</h2>
+  <p>by {{ b.author }}</p>
+  <p>{{ b.read ? 'Read' : 'Not read yet' }}</p>
+} @else {
+  <p>Book not found.</p>
+}
+
+<a routerLink="/">← Back to list</a>
