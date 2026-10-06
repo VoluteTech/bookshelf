@@ -1,8 +1,9 @@
 import { Component, input, output } from '@angular/core';
 import { Book } from '../../book/book';
+import { RouterLink } from '@angular/router';
 
 @Component({
-  imports: [],
+  imports: [RouterLink],
   selector: 'app-book-card',
   styleUrl: './book-card.css',
   templateUrl: './book-card.html',

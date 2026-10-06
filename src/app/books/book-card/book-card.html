@@ -1,5 +1,5 @@
 <article class="book-card">
-  <h3>{{ book().title }}</h3>
+  <h3><a [routerLink]="['/books', book().id]">{{ book().title }}</a></h3>
   <p>by {{ book().author }}</p>
 
   @if (book().read) {
