@@ -1,5 +1,7 @@
 <h2>My Books</h2>
 
+<a routerLink="/books/new">+ Add a book</a>
+
 <div class="book-list">
   @for (book of books(); track book.id) {
     <app-book-card [book]="book" (toggleRead)="onToggleRead($event)" />

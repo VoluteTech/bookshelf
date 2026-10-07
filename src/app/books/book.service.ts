@@ -18,4 +18,11 @@ export class BookService {
       )
     );
   }
+
+  addBook(newBook: Omit<Book, 'id'>): void {
+    this.booksSignal.update(books => [
+      ...books,
+      { ...newBook, id: Math.max(0, ...books.map(b => b.id)) + 1 }
+    ]);
+  }
 }

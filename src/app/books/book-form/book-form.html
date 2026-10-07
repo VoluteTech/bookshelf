@@ -1,0 +1,22 @@
+<h2>Add a New Book</h2>
+
+<form [formGroup]="bookForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="title">Title</label>
+    <input id="title" type="text" formControlName="title" />
+    @if (bookForm.controls.title.invalid && bookForm.controls.title.touched) {
+      <p class="error">Title is required (at least 2 characters).</p>
+    }
+  </div>
+
+  <div>
+    <label for="author">Author</label>
+    <input id="author" type="text" formControlName="author" />
+    @if (bookForm.controls.author.invalid && bookForm.controls.author.touched) {
+      <p class="error">Author is required.</p>
+    }
+  </div>
+
+  <button type="submit">Add Book</button>
+  <a routerLink="/">Cancel</a>
+</form>

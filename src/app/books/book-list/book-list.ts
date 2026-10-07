@@ -1,9 +1,10 @@
 import { Component, inject } from '@angular/core';
 import { BookCard } from '../book-card/book-card';
 import { BookService } from '../book.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
-  imports: [BookCard],
+  imports: [BookCard, RouterLink],
   selector: 'app-book-list',
   styleUrl: './book-list.css',
   templateUrl: './book-list.html',
