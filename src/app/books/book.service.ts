@@ -1,28 +1,44 @@
-import { Service, signal } from '@angular/core';
+import { inject, Service, signal } from '@angular/core';
 import { Book } from '../book/book';
+import { HttpClient } from '@angular/common/http';
+import { Observable, tap } from 'rxjs';
 
 @Service()
 export class BookService {
-  private readonly booksSignal = signal<Book[]>([
-    { id: 1, title: 'Dune', author: 'Frank Herbert', read: true },
-    { id: 2, title: 'Project Hail Mary', author: 'Andy Weir', read: false },
-    { id: 3, title: 'The Hobbit', author: 'J.R.R. Tolkien', read: true },
-  ]);
+  private readonly http = inject(HttpClient);
+  private readonly apiUrl = 'http://localhost:3000/books';
 
+  private readonly booksSignal = signal<Book[]>([]);
   readonly books = this.booksSignal.asReadonly();
 
-  toggleRead(id: number): void {
-    this.booksSignal.update(books =>
-      books.map(book =>
-        book.id === id ? { ...book, read: !book.read } : book
-      )
-    );
+  constructor() {
+    this.loadBooks();
   }
 
-  addBook(newBook: Omit<Book, 'id'>): void {
-    this.booksSignal.update(books => [
-      ...books,
-      { ...newBook, id: Math.max(0, ...books.map(b => b.id)) + 1 }
-    ]);
+  loadBooks(): void {
+    this.http.get<Book[]>(this.apiUrl).subscribe(books => {
+      this.booksSignal.set(books);
+    });
+  }
+
+  toggleRead(id: number): void {
+    const book = this.booksSignal().find(b => b.id === id);
+    if (!book) return;
+
+    this.http
+      .patch<Book>(`${this.apiUrl}/${id}`, { read: !book.read })
+      .subscribe(updated => {
+        this.booksSignal.update(books =>
+          books.map(b => (b.id === id ? updated : b))
+        );
+      });
+  }
+
+  addBook(newBook: Omit<Book, 'id'>): Observable<Book> {
+    return this.http.post<Book>(this.apiUrl, newBook).pipe(
+      tap(created => {
+        this.booksSignal.update(books => [...books, created])
+      })
+    );
   }
 }

@@ -25,7 +25,8 @@ export class BookForm {
       return;
     }
     const { title, author } = this.bookForm.getRawValue();
-    this.bookService.addBook({ title, author, read: false });
-    this.router.navigate(['/']);
+    this.bookService.addBook({ title, author, read: false }).subscribe(() => {
+      this.router.navigate(['/']);
+    });
   }
 }
