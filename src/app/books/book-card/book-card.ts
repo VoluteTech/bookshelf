@@ -11,8 +11,13 @@ import { RouterLink } from '@angular/router';
 export class BookCard {
   book = input.required<Book>();
   toggleRead = output<number>();
+  remove = output<number>();
 
   protected onToggleClick() {
     this.toggleRead.emit(this.book().id);
+  }
+
+  protected onRemoveClick() {
+    this.remove.emit(this.book().id);
   }
 }

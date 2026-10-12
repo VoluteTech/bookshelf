@@ -2,8 +2,27 @@
 
 <a routerLink="/books/new">+ Add a book</a>
 
-<div class="book-list">
-  @for (book of books(); track book.id) {
-    <app-book-card [book]="book" (toggleRead)="onToggleRead($event)" />
+@if (loading()) {
+  <p>Loading your books...</p>
+} @else {
+  @if (error(); as message) {
+    <div class="error-banner" role="alert">
+      <p>{{ message }}</p>
+      <button click="onReload()">Reload</button>
+    </div>
   }
-</div>
+
+  <div class="book-list">
+    @for (book of books(); track book.id) {
+      <app-book-card
+        [book]="book"
+        (toggleRead)="onToggleRead($event)"
+        (remove)="onRemove($event)"
+      />
+    } @empty {
+      @if (error(); as message) {
+        <p>No books yet. Add your first one !</p>
+      }
+    }
+  </div>
+}

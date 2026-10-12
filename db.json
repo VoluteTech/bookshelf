@@ -16,11 +16,11 @@
       "id": 3,
       "title": "The Hobbit",
       "author": "J.R.R. Tolkien",
-      "read": true
+      "read": false
     },
     {
-      "title": "testbook",
-      "author": "testauthor",
+      "title": "L'épouvanteur",
+      "author": "jsplus",
       "read": false,
       "id": 4
     }

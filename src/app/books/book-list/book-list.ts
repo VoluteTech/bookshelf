@@ -11,9 +11,22 @@ import { RouterLink } from '@angular/router';
 })
 export class BookList {
   private readonly bookService = inject(BookService);
+
   protected readonly books = this.bookService.books;
+  protected readonly loading = this.bookService.loading;
+  protected readonly error = this.bookService.error;
 
   protected onToggleRead(bookId: number): void {
     this.bookService.toggleRead(bookId);
+  }
+
+  protected onRemove(bookId: number): void {
+    if (confirm("Delete this book ?")) {
+      this.bookService.deleteBook(bookId);
+    }
+  }
+
+  protected onReload(): void {
+    this.bookService.loadBooks();
   }
 }
