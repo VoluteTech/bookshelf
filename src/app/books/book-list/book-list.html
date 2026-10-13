@@ -8,7 +8,7 @@
   @if (error(); as message) {
     <div class="error-banner" role="alert">
       <p>{{ message }}</p>
-      <button click="onReload()">Reload</button>
+      <button (click)="onReload()">Reload</button>
     </div>
   }
 
