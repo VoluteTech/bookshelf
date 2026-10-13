@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BookService } from '../book.service';
 import { Router, RouterLink } from '@angular/router';
@@ -14,6 +14,9 @@ export class BookForm {
   private readonly bookService = inject(BookService);
   private readonly router = inject(Router);
 
+  protected readonly saving = signal(false);
+  protected readonly submitError = signal<string | null>(null);
+
   protected readonly bookForm = this.fb.nonNullable.group({
     title: ['', [Validators.required, Validators.minLength(2)]],
     author: ['', [Validators.required]],
@@ -24,9 +27,17 @@ export class BookForm {
       this.bookForm.markAllAsTouched();
       return;
     }
+
+    this.saving.set(true);
+    this.submitError.set(null);
+
     const { title, author } = this.bookForm.getRawValue();
-    this.bookService.addBook({ title, author, read: false }).subscribe(() => {
-      this.router.navigate(['/']);
+    this.bookService.addBook({ title, author, read: false }).subscribe({
+      next: () => this.router.navigate(['/']),
+      error: () => {
+        this.saving.set(false);
+        this.submitError.set("Could not save the book. Please try again.");
+      },
     });
   }
 }
