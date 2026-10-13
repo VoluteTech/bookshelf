@@ -20,7 +20,7 @@
         (remove)="onRemove($event)"
       />
     } @empty {
-      @if (error(); as message) {
+      @if (!error()) {
         <p>No books yet. Add your first one !</p>
       }
     }
