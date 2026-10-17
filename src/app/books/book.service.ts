@@ -63,6 +63,16 @@ export class BookService {
     );
   }
 
+  updateBook(id: number, changes: Partial<Pick<Book, 'title' | 'author'>>): Observable<Book> {
+    return this.http.patch<Book>(`${this.apiUrl}/${id}`, changes).pipe(
+      tap(updated => {
+        this.booksSignal.update(books =>
+          books.map(b => (b.id === id ? updated : b))
+        );
+      })
+    );
+  }
+
   deleteBook(id: number): void {
     this.errorSignal.set(null);
     this.http.delete(`${this.apiUrl}/${id}`).subscribe({

@@ -1,4 +1,8 @@
-<h2>Add a New Book</h2>
+@if (isEdit() && !loading() && !book()) {
+  <p>Book not found.</p>
+  <a routerLink="/">Back to list</a>
+}
+<h2>{{ isEdit() ? 'Edit book' : 'Add book' }}</h2>
 
 <form [formGroup]="bookForm" (ngSubmit)="onSubmit()">
   <div>
@@ -22,7 +26,7 @@
   }
 
   <button type="submit" [disabled]="saving()">
-    {{ saving() ? 'Saving...' : 'Add Book' }}
+    {{ submitLabel() }}
   </button>
   <a routerLink="/">Cancel</a>
 </form>

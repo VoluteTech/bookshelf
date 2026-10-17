@@ -13,6 +13,7 @@
   }
 
   <div class="actions">
+    <a [routerLink]="['/books', book().id, 'edit']">Edit</a>
     <button (click)="onToggleClick()">Toggle read status</button>
     <button class="danger" (click)="onRemoveClick()">Delete</button>
   </div>

@@ -5,6 +5,7 @@
     <h2>{{ b.title }}</h2>
     <p>by {{ b.author }}</p>
     <p>{{ b.read ? 'Read' : 'Not read yet' }}</p>
+    <a [routerLink]="['/books', b.id, 'edit']">Edit</a>
   } @else {
     <p>Book not found.</p>
   }
