@@ -3,8 +3,9 @@
   [class.is-read]="book().read"
   [style.opacity]="book().read ? 0.75 : 1"
   >
-  <h3><a [routerLink]="['/books', book().id]">{{ book().title }}</a></h3>
+  <h3><a [routerLink]="['/books', book().id]">{{ book().title | titlecase }}</a></h3>
   <p>by {{ book().author }}</p>
+  <small>Added {{ book().addedAt | date: 'mediumDate' }}</small>
 
   @if (book().read) {
     <span class="badge">✓ Read</span>

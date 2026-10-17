@@ -55,8 +55,10 @@ export class BookService {
       });
   }
 
-  addBook(newBook: Omit<Book, 'id'>): Observable<Book> {
-    return this.http.post<Book>(this.apiUrl, newBook).pipe(
+  addBook(newBook: Omit<Book, 'id' | 'addedAt'>): Observable<Book> {
+    const book = { ...newBook, addedAt: new Date().toISOString() };
+
+    return this.http.post<Book>(this.apiUrl, book).pipe(
       tap(created => {
         this.booksSignal.update(books => [...books, created])
       })

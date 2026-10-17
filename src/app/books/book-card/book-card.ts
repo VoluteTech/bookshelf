@@ -1,9 +1,10 @@
 import { Component, input, output } from '@angular/core';
 import { Book } from '../../book/book';
 import { RouterLink } from '@angular/router';
+import { DatePipe, TitleCasePipe } from '@angular/common';
 
 @Component({
-  imports: [RouterLink],
+  imports: [RouterLink, DatePipe, TitleCasePipe],
   selector: 'app-book-card',
   styleUrl: './book-card.css',
   templateUrl: './book-card.html',
